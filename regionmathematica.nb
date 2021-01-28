@@ -1,0 +1,26 @@
+Co[s_] := kp + kd*s;
+Gs[s_] := ((-s^4 - 7*s^3 - 2*s + 1)*
+     E^(-s/20))/((s + 1)*(s + 2)*(s + 3)*(s + 4)*(s^2 + s + 1));
+
+T[s_] := FullSimplify[Gs[s]*Co[s]/(1 + Gs[s]*Co[s])];
+
+P[s_] := Denominator[T[s]];
+
+FullSimplify[
+ Solve[ComplexExpand[Re[P[I*w]]] == 0 && 
+   ComplexExpand[Im[P[I*w]]] == 0, {kp, kd}]]
+
+kpx[w_] := (-(24 - 257 w^2 + 730 w^4 - 579 w^6 + 31 w^8 + w^10) Cos[w/
+       20] + w (122 - 481 w^2 + 792 w^4 - 229 w^6 - 4 w^8) Sin[w/
+       20])/(1 + 4 w^2 - 30 w^4 + 49 w^6 + w^8);
+kdx[w_] := (w (-122 + 481 w^2 - 792 w^4 + 229 w^6 + 4 w^8) Cos[w/
+       20] - (24 - 257 w^2 + 730 w^4 - 579 w^6 + 31 w^8 + w^10) Sin[w/
+       20])/(w + 4 w^3 - 30 w^5 + 49 w^7 + w^9);
+
+SetDirectory[NotebookDirectory[]];
+<< ToMatlab.m
+f = OpenWrite["ejemplo.m"];
+WriteMatlab[kpx[w], f, "kpx"];
+WriteMatlab[kdx[w], f, "kdx"];
+WriteMatlab[Gs[s], f, "Gs"];
+Close[f];
