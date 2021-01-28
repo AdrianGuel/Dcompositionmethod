@@ -20,3 +20,4 @@ set(gcf,'color','w');
 plot(kpx,kdx)
 xlabel('$k_p$','Interpreter','Latex','FontSize', 16)
 ylabel('$k_d$','Interpreter','Latex','FontSize', 16)
+axis([-30 10 -40 10])
