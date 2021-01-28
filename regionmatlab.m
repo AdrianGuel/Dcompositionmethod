@@ -1,3 +1,11 @@
+%Author Adrian Josue Guel Cortez
+%January 2021
+%If this code helped you please cite one of the folowing works
+% César Fernando Méndez Barrios, "Low-Order Controllers for Time-Delay Systems : an Analytical Approach". 2012 PhD thesis
+% Guel-Cortez, Adrián Josué, et al. "Geometrical design of fractional PDμ controllers for linear time-invariant fractional-order systems with time delay." 
+%Proceedings of the Institution of Mechanical Engineers, Part I: Journal of Systems and Control Engineering 233.7 (2019): 815-829.
+
+
 w=0:0.1:10000;
 kpx=(1+4.*w.^2+(-30).*w.^4+49.*w.^6+w.^8).^(-1).*(((-24)+257.*w.^2+(-730).* ...
   w.^4+579.*w.^6+(-31).*w.^8+(-1).*w.^10).*cos((1/20).*w)+w.*(122+(-481).* ...
