@@ -1,0 +1,27 @@
+Gs[s_] := (-1.308*E^(-4.896*s))/((13.515*s + 1)*(6.241*s + 1));
+Co[s_] := kp + ki/s;
+T[s_] := FullSimplify[Gs[s]*Co[s]/(1 + Gs[s]*Co[s])];
+P[s_] := Denominator[T[s]];
+FullSimplify[
+ Solve[ComplexExpand[Re[P[I*w]]] == 0 && 
+   ComplexExpand[Im[P[I*w]]] == 0, {kp, ki}]]
+
+Out[17]= {{kp -> (0.764526 - 64.4856 w^2) Cos[4.896 w] - 
+    15.104 w Sin[4.896 w], 
+  ki -> w (-15.104 w Cos[4.896 w] + (-0.764526 + 64.4856 w^2) Sin[
+        4.896 w])}}
+
+In[18]:= kpx[
+  w_] := (0.7645259938837919` - 64.48556192660548` w^2) Cos[
+    4.896` w] - 15.103975535168194` w Sin[4.896` w]; 
+kix[w_] := 
+ w (-15.103975535168194` w Cos[
+      4.896` w] + (-0.7645259938837919` + 64.48556192660548` w^2) Sin[
+      4.896` w]);
+
+In[19]:= SetDirectory[NotebookDirectory[]];
+<< ToMatlab.m
+f = OpenWrite["ejemplo2.m"];
+WriteMatlab[kpx[w], f, "kpx"];
+WriteMatlab[kix[w], f, "kix"];
+Close[f];
